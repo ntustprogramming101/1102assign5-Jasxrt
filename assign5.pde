@@ -464,7 +464,7 @@ void draw() {
 
     // Time UI - Requirement #4
     drawTimerUI();
-
+    drawCaution();
     // Health UI
     for (int i = 0; i < playerHealth; i++) {
       image(life, 10 + i * 70, 10);
@@ -579,22 +579,31 @@ color getTimeTextColor(int frames) {
 
 int getEnemyIndexByRow(int row) {				// Requirement #6
 
-  // HINT:
-  // - If there's a soldier in that row, return that soldier's index in soldierX/soldierY
-  // (for example, if soldierY[3] is in that row, return 3)
-  // - Return -1 if there's no soldier in that row
+  for (int i=0; i<soldierX.length; i++) {
+    if (soldierY[i]== row*SOIL_SIZE) {
 
+
+      return i;
+      }
+      }
   return -1;
 }
 
-void drawCaution() {								// Requirement #6
-
-  // Draw a caution sign above the enemy under the screen using int getEnemyIndexByRow(int row)
-
-  // HINT:
-  // - Use playerRow to calculate the row below the screen
-  // - Use the returned value from int getEnemyIndexByRow(int row) to get the soldier's position from soldierX/soldierY arrays
-  // - Don't draw anything if int getEnemyIndexByRow(int row) returns -1
+void drawCaution() {							
+  
+  // Requirement #6
+  for (int r = playerRow + 5; r <= playerRow+5; r++) {
+    int index = getEnemyIndexByRow(r);
+    if (index != -1) {
+      float caution_x = soldierX[index];
+      float caution_y = ((r)-playerRow)*SOIL_SIZE;
+      // print("x y = ");
+      //print(caution_x);
+      print("\nsoldierY= ", soldierY[index]);
+      print("\n cautiony= ", caution_y);
+      image(caution, caution_x, caution_y);
+    }
+  }    
 }
 
 void keyPressed() {
